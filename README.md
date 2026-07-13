@@ -58,13 +58,6 @@ That's it — no Python, Jupyter, or local setup needed.
 
 All required libraries (pandas, numpy, matplotlib, etc.) are pre-installed in the Colab environment — no `pip install` needed.
 
-**Adding the Colab badge to a notebook:** insert this as the first cell (Markdown), replacing the path with the notebook's actual location in the repo:
-
-```markdown
-<a href="https://colab.research.google.com/github/kevin-blasiak-curtin/ISYS2001-Archive/blob/main/Module%2001/01_Hello_Python!_Your_First_Steps_in_Coding.ipynb" target="_parent">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
-```
 
 ## Usage
 
