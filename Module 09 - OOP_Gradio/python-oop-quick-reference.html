@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python OOP Quick Reference</title>
+<style>
+  :root {
+    --charcoal: #33312E;
+    --gold: #B8933B;        /* accents, rules, borders, bullets */
+    --gold-text: #9C7A1C;   /* deeper gold for legible heading text */
+    --code-bg: #F4EEE1;     /* warm sand for code cards */
+    --head-bg: #EAE1CD;     /* deeper sand for table headers */
+    --alt-bg: #FAF6EC;      /* light sand for alternating rows */
+    --rule: #D9CDB2;        /* soft gold-sand hairline */
+    --page: #FFFFFF;
+    --serif: "Cambria", Georgia, "Times New Roman", serif;
+    --sans: "Calibri", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --mono: "Courier New", Courier, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .sheet {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2.25rem 4rem;
+  }
+
+  /* --- Title block --- */
+  .title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 1.1;
+    margin: 0 0 0.15rem;
+    letter-spacing: 0.2px;
+  }
+  .subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--gold-text);
+    font-size: 1.15rem;
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  /* --- Section headings --- */
+  h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    margin: 2.4rem 0 0.7rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  h3 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.18rem;
+    color: var(--gold-text);
+    margin: 1.4rem 0 0.5rem;
+  }
+
+  p { margin: 0.4rem 0 0.6rem; }
+
+  /* --- Lists with gold markers --- */
+  ul {
+    margin: 0.4rem 0 0.8rem;
+    padding-left: 1.4rem;
+  }
+  li {
+    margin: 0.28rem 0;
+    padding-left: 0.2rem;
+  }
+  li::marker {
+    color: var(--gold);
+    font-size: 1.05em;
+  }
+
+  /* --- Inline code --- */
+  code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+    background: var(--code-bg);
+    padding: 0.05em 0.35em;
+    border-radius: 3px;
+    color: var(--charcoal);
+  }
+
+  /* --- Code cards --- */
+  pre {
+    margin: 0.6rem 0 1rem;
+    background: var(--code-bg);
+    border: 1px solid var(--rule);
+    border-left: 5px solid var(--gold);
+    border-radius: 2px;
+    padding: 0.95rem 1.1rem;
+    overflow-x: auto;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    white-space: pre;
+    display: block;
+  }
+
+  /* --- Tables --- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.7rem 0 1.1rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    font-family: var(--serif);
+    font-weight: 700;
+    background: var(--head-bg);
+  }
+  tbody tr:nth-child(even) { background: var(--alt-bg); }
+  td code, th code { background: none; padding: 0; }
+  td .code {
+    font-family: var(--mono);
+    font-size: 0.86rem;
+  }
+
+  .footer {
+    margin-top: 2.6rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.82rem;
+    color: #8B857A;
+  }
+
+  /* --- Print --- */
+  @media print {
+    body { font-size: 11pt; }
+    .sheet { padding: 0; max-width: none; }
+    h2 { margin-top: 1.4rem; }
+    pre, tr, table { break-inside: avoid; }
+    h2, h3 { break-after: avoid; }
+  }
+
+  @media (max-width: 560px) {
+    .sheet { padding: 2rem 1.1rem 3rem; }
+    .title { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <h1 class="title">Python OOP Quick Reference</h1>
+  <p class="subtitle">For when AI gets too technical</p>
+
+  <h2>The Big Picture</h2>
+  <ul>
+    <li><strong>Templates</strong> (called <strong>classes</strong>) define what something should look like</li>
+    <li><strong>Individual items</strong> (called <strong>objects</strong>) are created from templates</li>
+    <li>Each item can store its own information and perform actions</li>
+  </ul>
+
+  <h2>Basic Template Creation</h2>
+  <pre><code>class Transaction:                    # Create a template called "Transaction"
+    def __init__(self, amount, desc): # This runs when creating each item
+        self.amount = amount          # Store information in this item
+        self.description = desc       # 'self' means "this specific item"
+
+    def is_expense(self):             # Define what this item can do
+        return self.amount &lt; 0        # Return True/False
+
+    def display(self):                # Another action this item can do
+        return f"{self.description}: ${self.amount}"</code></pre>
+
+  <h2>Using the Template</h2>
+  <pre><code># Create individual items from the template
+coffee = Transaction(-4.50, "Coffee")       # Creates one transaction
+salary = Transaction(1000, "Paycheck")      # Creates another transaction
+
+# Use the items
+print(coffee.display())          # "Coffee: $-4.50"
+print(coffee.is_expense())       # True
+print(salary.is_expense())       # False
+
+# Access stored information
+print(coffee.amount)             # -4.50
+print(salary.description)        # "Paycheck"</code></pre>
+
+  <h2>Key Python Words</h2>
+  <table>
+    <thead>
+      <tr><th>Word</th><th>What it means</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="code">class</span></td><td>Creates a template / blueprint</td><td><span class="code">class Customer:</span></td></tr>
+      <tr><td><span class="code">def __init__</span></td><td>Setup that runs when item is created</td><td><em>Like filling out a form</em></td></tr>
+      <tr><td><span class="code">self</span></td><td>&ldquo;This specific item&rdquo;</td><td><span class="code">self.name = "John"</span></td></tr>
+      <tr><td><span class="code">def method_name</span></td><td>An action the item can perform</td><td><span class="code">def calculate_total()</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Common Patterns</h2>
+
+  <h3>Storing information</h3>
+  <pre><code>class Customer:
+    def __init__(self, name, email):
+        self.name = name        # Each customer remembers their name
+        self.email = email      # Each customer remembers their email
+        self.orders = []        # Start with empty order list</code></pre>
+
+  <h3>Performing actions</h3>
+  <pre><code>class BankAccount:
+    def __init__(self, balance):
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance = self.balance + amount    # Change stored information
+
+    def get_balance(self):
+        return self.balance                     # Return stored information</code></pre>
+
+  <h3>Working with collections</h3>
+  <pre><code>class OrderManager:
+    def __init__(self):
+        self.orders = []                # Store multiple items
+
+    def add_order(self, order):
+        self.orders.append(order)       # Add new item to collection
+
+    def count_orders(self):
+        return len(self.orders)         # Count items in collection</code></pre>
+
+  <h2>Reading AI Code</h2>
+  <p>When AI gives you code with these patterns, look for:</p>
+  <ul>
+    <li>What information does each item store? (Look for <code>self.something = value</code>)</li>
+    <li>What actions can items perform? (Look for <code>def action_name(self):</code>)</li>
+    <li>How do you create new items? (Look for the <code>__init__</code> section)</li>
+    <li>How do you use the items? (Look for examples like <code>item.action()</code>)</li>
+  </ul>
+
+  <h2>Quick Debugging</h2>
+  <table>
+    <thead>
+      <tr><th>Error</th><th>How to fix it</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="code">NameError: name 'self' is not defined</span></td><td>Make sure you are inside a class method and the first parameter is <code>self</code></td></tr>
+      <tr><td><span class="code">TypeError: missing required argument</span></td><td>Check the <code>__init__</code> method. You need to provide all required information</td></tr>
+      <tr><td><span class="code">AttributeError: object has no attribute</span></td><td>Check spelling, or make sure you defined that information or action in the class</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Business Translation</h2>
+  <table>
+    <thead>
+      <tr><th>Business concept</th><th>Python code</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>&ldquo;Customer form template&rdquo;</td><td><span class="code">class Customer:</span></td></tr>
+      <tr><td>&ldquo;Fill out a new customer form&rdquo;</td><td><span class="code">new_customer = Customer("John", "john@email.com")</span></td></tr>
+      <tr><td>&ldquo;Customer&rsquo;s stored information&rdquo;</td><td><span class="code">new_customer.name</span></td></tr>
+      <tr><td>&ldquo;What can customers do?&rdquo;</td><td>Methods like <span class="code">place_order()</span>, <span class="code">update_email()</span></td></tr>
+      <tr><td>&ldquo;Filing cabinet of customers&rdquo;</td><td><span class="code">customers = []</span> then <span class="code">customers.append(new_customer)</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Remember</h2>
+  <ul>
+    <li><strong>Focus on the business problem.</strong> What are you trying to solve?</li>
+    <li><strong>Let AI handle the syntax.</strong> Use the business-focused prompts from your worksheets</li>
+    <li><strong>This reference is backup.</strong> Most of the time, good prompts mean you will not need these details</li>
+    <li><strong>Templates + individual items = powerful business systems</strong></li>
+  </ul>
+
+  <p class="footer">ISYS2001 Introduction to Business Programming</p>
+
+</main>
+</body>
+</html>
